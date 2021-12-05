@@ -1,44 +1,39 @@
 {
-  "name": "wml",
-  "version": "0.0.83",
-  "description": "Replaces npm link with something that actually works!",
-  "scripts": {
-    "test": ":",
-    "prepublish": ":",
-    "build": ":",
-    "release": "npm install wnpm-ci --no-save && wnpm-release -- --no-shrinkwrap"
-  },
-  "bin": {
-    "wml": "./src/cli/index.js"
-  },
-  "author": "dutzi <dutzi@wix.com> (http://github.com/dutzi)",
-  "license": "MIT",
-  "preferGlobal": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wix/wml.git"
-  },
-  "bugs": {
-    "url": "https://github.com/wix/wml/issues"
-  },
-  "homepage": "https://github.com/wix/wml#readme",
-  "dependencies": {
-    "colors": "^1.1.2",
-    "extend": "^3.0.0",
-    "fb-watchman": "^1.9.0",
-    "fs-extra": "^0.30.0",
-    "inquirer": "^1.2.3",
-    "is-there": "^4.3.3",
-    "q": "^1.4.1",
-    "untildify": "^3.0.2",
-    "uuid-js": "^0.7.5",
-    "yargs": "^4.7.1"
-  },
-  "devDependencies": {
-    "babel-eslint": "^6.0.4",
-    "eslint": "^2.11.1"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  }
+    "name": "wml",
+    "version": "0.0.83",
+    "description": "Replaces npm link with something that actually works!",
+    "scripts": {},
+    "bin": {
+        "fc": "./src/cli/index.js"
+    },
+    "author": "karsens <wijnand@karsens.com> (http://github.com/karsens)",
+    "license": "MIT",
+    "preferGlobal": true,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CodeFromAnywhere/dryduck.git"
+    },
+    "bugs": {
+        "url": "https://github.com/CodeFromAnywhere/dryduck/issues"
+    },
+    "homepage": "https://github.com/CodeFromAnywhere/dryduck#readme",
+    "dependencies": {
+        "colors": "^1.1.2",
+        "extend": "^3.0.0",
+        "fb-watchman": "^1.9.0",
+        "fs-extra": "^0.30.0",
+        "inquirer": "^1.2.3",
+        "is-there": "^4.3.3",
+        "q": "^1.4.1",
+        "untildify": "^3.0.2",
+        "uuid-js": "^0.7.5",
+        "yargs": "^4.7.1"
+    },
+    "devDependencies": {
+        "babel-eslint": "^6.0.4",
+        "eslint": "^2.11.1"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/"
+    }
 }
