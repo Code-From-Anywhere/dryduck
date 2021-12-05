@@ -2,7 +2,7 @@
 
 # Dryduck
 
-Every programmer knows dry. Don't repeat yourself. So why repeat yourself across platforms, writing the same thing twice? Dryduck is a tool for code-sharing across cross-platform apps. It's a fork of [dryduck](https://github.com/wix/dryduck)
+Every programmer knows dry. Don't repeat yourself. So why repeat yourself across platforms, writing the same thing twice? Dryduck is a tool for code-sharing across cross-platform apps. It's a fork of [wml](https://github.com/wix/wml)
 
 ## Why?
 
@@ -10,7 +10,7 @@ Let's face it, sometimes symbolic links just aren't enough. Github has more than
 
 Two examples I've encountered so far were: React Native's packager [lack of support for them](https://github.com/facebook/react-native/issues/637) and Webpack's [inability to find linked modules dependencies](http://webpack.github.io/docs/troubleshooting.html#npm-linked-modules-doesn-t-find-their-dependencies) (working around this has issues of its own). A lot of people resolve to working directly from the node*modules folder in these cases, but \_a.* if your package is required by two projects on which you are working simultaneously, you're screwed, and _b._ it just feels wrong.
 
-Dryduck makes use of Facebook's ultra-fast Watchman to watch for changes in your source folder and copy them (and only them) into your destination folder. It makes it possible (unlike dryduck) to add relative paths into a settingsfile so that you can watch and copy folders across big monorepo's.
+Dryduck makes use of Facebook's ultra-fast Watchman to watch for changes in your source folder and copy them (and only them) into your destination folder. It makes it possible (unlike wml) to add relative paths into a settingsfile so that you can watch and copy folders across big monorepo's.
 
 ## Install
 
