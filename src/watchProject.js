@@ -1,20 +1,19 @@
-'use strict';
+"use strict";
 
-var Q = require('q');
+var Q = require("q");
 
 module.exports = function (params) {
-	var deferred = Q.defer();
+    var deferred = Q.defer();
 
-	console.log({watchProjectSrc:params.src})
-	params.client.command(['watch-project', params.src], (error, resp) => {
-		if (error) {
-			console.log("ERRORORRORORO")
-			deferred.reject(error);
-		} else {
-			deferred.resolve(resp);
-		}
+    console.log({ watchProjectSrc: params.src });
+    params.client.command(["watch", params.src], (error, resp) => {
+        if (error) {
+            deferred.reject(error);
+        } else {
+            console.log({ resp });
+            deferred.resolve(resp);
+        }
+    });
 
-	});
-
-	return deferred.promise;
-}
+    return deferred.promise;
+};
