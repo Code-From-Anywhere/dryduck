@@ -1,10 +1,12 @@
 {
     "name": "wml",
-    "version": "0.0.83",
+    "version": "0.0.84",
     "description": "Replaces npm link with something that actually works!",
-    "scripts": {},
+    "scripts": {
+        "pub": "npm version patch --force && npm publish"
+    },
     "bin": {
-        "fc": "./src/cli/index.js"
+        "dryduck": "./src/cli/index.js"
     },
     "author": "karsens <wijnand@karsens.com> (http://github.com/karsens)",
     "license": "MIT",
