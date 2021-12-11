@@ -1,11 +1,11 @@
 "use strict";
 
 var Q = require("q");
-
+var { debug } = require("./util");
 module.exports = function (params) {
     var deferred = Q.defer();
 
-    console.log({ watchProjectSrc: params });
+    debug({ watchProjectSrc: params });
 
     //NB: try to watch-del the src first because we want .watchmanconfig to be refreshed. Even if this doesn't work, watch anyway.
     params.client.command(["watch-del", params.src], (error) => {
@@ -16,7 +16,7 @@ module.exports = function (params) {
             if (error) {
                 deferred.reject(error);
             } else {
-                console.log({ watchProjectResponse: resp });
+                debug({ watchProjectResponse: resp });
                 deferred.resolve(resp);
             }
         });

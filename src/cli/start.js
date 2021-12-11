@@ -12,7 +12,7 @@ var watchman = require("fb-watchman");
 var links = require("../links.js");
 var copyHandler = require("../handlers/copy.js");
 var untildify = require("untildify");
-
+var { debug } = require("../util");
 exports.command = "start";
 
 exports.describe = "Starts watching all links";
@@ -31,7 +31,7 @@ function onLinksChange(onChange) {
             onChange();
         }
 
-        console.log("check onLinksChange", { resp, hasLinksChanged });
+        debug("check onLinksChange", { resp, hasLinksChanged });
     };
 }
 
@@ -46,7 +46,7 @@ function startWatcher(link, linkId) {
     link.src = getAbsoluteLink(link.src);
     link.dest = getAbsoluteLink(link.dest);
 
-    console.log("startWatcher", { link });
+    debug("startWatcher", { link });
     if (!link.enabled) {
         return;
     }
@@ -71,7 +71,7 @@ function startWatcher(link, linkId) {
                 console.log("[watch-warning]".yellow, resp.warning);
             }
 
-            console.log("[watch]".green, resp.watch, resp.relative_path);
+            debug("[watch]".green, resp.watch, resp.relative_path);
 
             relativePath = resp.relative_path;
             watch = resp.watch;
@@ -82,7 +82,7 @@ function startWatcher(link, linkId) {
             });
         })
         .then((resp) => {
-            console.log("[watch-config]".green, resp.config, link);
+            debug("[watch-config]".green, resp.config, link);
 
             return subscribe({
                 client: client,
@@ -98,7 +98,7 @@ function startWatcher(link, linkId) {
         })
         .then(
             () => {
-                console.log("[subscribe]".green, link.src);
+                debug("[subscribe]".green, link.src);
             },
             (err) => {
                 client.end();
@@ -119,11 +119,11 @@ function startWatcher(link, linkId) {
 
 function stopWatcher(watcher, src, dest) {
     watcher.end();
-    console.log("[end]".green, src, "->", dest);
+    debug("[end]".green, src, "->", dest);
 }
 
 function updateWatchers() {
-    console.log("update watchers");
+    debug("update watchers");
     var prevLinks = links.data,
         i;
 
@@ -135,7 +135,7 @@ function updateWatchers() {
         var link = links.data[i],
             prevLink = prevLinks[i] || {};
 
-        console.log({ prevEnabled: prevLink.enabled, enabled: link.enabled });
+        debug({ prevEnabled: prevLink.enabled, enabled: link.enabled });
         if (!prevLink.enabled && link.enabled) {
             watchers[i] = startWatcher(links.data[i], i);
         } else if (prevLink.enabled && !link.enabled) {
@@ -155,7 +155,7 @@ function updateWatchers() {
 }
 
 exports.handler = () => {
-    console.log("starting...");
+    debug("starting...");
     var linksPath = path.resolve(".");
 
     const client = new watchman.Client();
@@ -163,7 +163,7 @@ exports.handler = () => {
         client: client,
         src: linksPath,
     }).then((response) => {
-        console.log({ firstWatchProjectResponse: response });
+        debug({ firstWatchProjectResponse: response });
 
         subscribe({
             client,

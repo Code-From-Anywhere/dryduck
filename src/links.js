@@ -2,9 +2,10 @@
 
 var fs = require("fs-extra");
 var path = require("path");
+var { debug } = require("./util");
 
 var linksPath = path.resolve("./dryduck.config.json");
-console.log({ linksPath1: linksPath });
+debug({ linksPath1: linksPath });
 module.exports.data = [];
 
 module.exports.load = function () {

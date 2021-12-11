@@ -33,7 +33,6 @@ module.exports = function (params) {
     );
 
     params.client.on("subscription", function (resp) {
-        console.log({ subscriptionEvent: resp });
         if (resp.subscription === subscriptionId) {
             params.handler(resp);
         }
