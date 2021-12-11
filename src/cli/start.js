@@ -21,33 +21,20 @@ exports.builder = {};
 
 function onLinksChange(onChange) {
     return function (resp) {
-        console.log("check onLinksChange");
-        var hasLinksChanged = resp.files.some(function (file) {
-            return file.name === "dryduck.config.json";
-        });
+        var hasLinksChanged =
+            resp.files &&
+            resp.files.some(function (file) {
+                return file.name === "dryduck.config.json";
+            });
 
         if (hasLinksChanged) {
-            console.log("check onLinksChange, hasLinksChanged");
             onChange();
         }
+
+        console.log("check onLinksChange", { resp, hasLinksChanged });
     };
 }
 
-function watchForLinkChanges(onChange) {
-    var linksPath = path.resolve("."); //path.resolve(__dirname, '../');
-    console.log({ linksPath2: linksPath });
-    const client = new watchman.Client();
-    watchProject({
-        client: client,
-        src: linksPath,
-    });
-    return subscribe({
-        client,
-        watch: linksPath,
-        src: linksPath,
-        handler: onLinksChange(onChange),
-    });
-}
 var watchers = [];
 
 function getAbsoluteLink(src) {
@@ -95,7 +82,7 @@ function startWatcher(link, linkId) {
             });
         })
         .then((resp) => {
-            console.log("[watch-config]".green, resp.config);
+            console.log("[watch-config]".green, resp.config, link);
 
             return subscribe({
                 client: client,
@@ -105,6 +92,7 @@ function startWatcher(link, linkId) {
                 handler: copyHandler({
                     src: link.src,
                     dest: link.dest,
+                    ignore: link.ignore,
                 }),
             });
         })
@@ -135,6 +123,7 @@ function stopWatcher(watcher, src, dest) {
 }
 
 function updateWatchers() {
+    console.log("update watchers");
     var prevLinks = links.data,
         i;
 
@@ -166,5 +155,21 @@ function updateWatchers() {
 }
 
 exports.handler = () => {
-    watchForLinkChanges(updateWatchers);
+    console.log("starting...");
+    var linksPath = path.resolve(".");
+
+    const client = new watchman.Client();
+    watchProject({
+        client: client,
+        src: linksPath,
+    }).then((response) => {
+        console.log({ firstWatchProjectResponse: response });
+
+        subscribe({
+            client,
+            watch: linksPath,
+            src: linksPath,
+            handler: onLinksChange(updateWatchers),
+        });
+    });
 };

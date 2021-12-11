@@ -17,15 +17,12 @@ module.exports = function (params) {
 
     var subscriptionId = uuid.create().toString();
 
+    const path = params.relativePath
+        ? params.watch + "/" + params.relativePath
+        : params.watch;
+
     params.client.command(
-        [
-            "subscribe",
-            params.relativePath
-                ? params.watch + "/" + params.relativePath
-                : params.watch,
-            subscriptionId,
-            sub,
-        ],
+        ["subscribe", path, subscriptionId, sub],
         (error, resp) => {
             if (error) {
                 deferred.reject(error);
@@ -36,6 +33,7 @@ module.exports = function (params) {
     );
 
     params.client.on("subscription", function (resp) {
+        console.log({ subscriptionEvent: resp });
         if (resp.subscription === subscriptionId) {
             params.handler(resp);
         }
