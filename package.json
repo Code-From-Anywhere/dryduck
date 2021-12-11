@@ -1,6 +1,6 @@
 {
     "name": "dryduck",
-    "version": "0.0.129",
+    "version": "0.0.130",
     "description": "Replaces npm link with something that actually works!",
     "scripts": {
         "pub": "npm version patch --force && npm publish"
