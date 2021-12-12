@@ -25,7 +25,7 @@ module.exports = function (params) {
         ["subscribe", path, subscriptionId, sub],
         (error, resp) => {
             if (error) {
-                deferred.reject(error);
+                deferred.reject({ location: "subscribe", path, error });
             } else {
                 deferred.resolve(resp);
             }

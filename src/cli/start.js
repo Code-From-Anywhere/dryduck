@@ -107,9 +107,9 @@ function startWatcher(link, linkId) {
                     ? err.watchmanResponse.error
                     : err;
 
-                console.log("[error]".red, error);
+                console.log("[error]".red, { error, link });
 
-                throw err;
+                // throw err;
             }
         )
         .done();

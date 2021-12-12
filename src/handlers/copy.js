@@ -2,6 +2,7 @@
 
 var path = require("path");
 var fs = require("fs-extra");
+var { debug } = require("../util");
 
 module.exports = function (config) {
     return function (resp) {
@@ -21,10 +22,10 @@ module.exports = function (config) {
                 }
 
                 if (f.exists) {
-                    console.log("[copy]", src, "->", dest);
+                    debug("[copy]", src, "->", dest);
                     fs.copy(src, dest);
                 } else {
-                    console.log("[delete]", dest);
+                    debug("[delete]", dest);
                     fs.remove(dest);
                 }
             }

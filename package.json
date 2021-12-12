@@ -1,9 +1,11 @@
 {
     "name": "dryduck",
-    "version": "0.0.132",
+    "version": "0.0.133",
     "description": "Replaces npm link with something that actually works!",
     "scripts": {
-        "pub": "npm version patch --force && npm publish"
+        "pub": "npm version patch --force && npm publish",
+        "husky-install": "npm set-script prepare \"husky install\" && npm run prepare && npx husky add .husky/pre-commit",
+        "prepare": "husky install"
     },
     "bin": {
         "dryduck": "./src/cli/index.js"
@@ -33,7 +35,8 @@
     },
     "devDependencies": {
         "babel-eslint": "^6.0.4",
-        "eslint": "^2.11.1"
+        "eslint": "^2.11.1",
+        "husky": "^7.0.4"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
